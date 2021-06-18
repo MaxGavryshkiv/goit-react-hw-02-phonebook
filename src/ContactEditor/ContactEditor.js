@@ -2,32 +2,50 @@ import React, { Component } from 'react';
 
 class ContactEditor extends Component {
   state = {
-    message: '',
+    name: '',
+    number: '',
   };
 
   handleChange = e => {
-    this.setState({ message: e.currentTarget.value });
+    this.setState({ name: e.currentTarget.value });
+  };
+  numberChange = e => {
+    this.setState({ number: e.currentTarget.value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onSubmit(this.state.message);
+    this.props.onSubmit(this.state.name, this.state.number);
 
-    this.setState({ message: '' });
+    this.setState({ name: '' });
+    this.setState({ number: '' });
   };
 
   render() {
     return (
-      <form className="ContactEditor" onSubmit={this.handleSubmit}>
-        <textarea
-          className="ContactEditor__textarea"
-          value={this.state.message}
+      <form onSubmit={this.handleSubmit}>
+        <h3>Name</h3>
+        <input
+          value={this.state.name}
           onChange={this.handleChange}
-        ></textarea>
-        <button type="submit" className="ContactEditor__button">
-          Сохранить
-        </button>
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+          required
+        />
+        <h3>Number</h3>
+        <input
+          value={this.state.number}
+          onChange={this.numberChange}
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+          required
+        />
+        <button type="submit">Сохранить</button>
       </form>
     );
   }
