@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
-import ContactEditor from './ContactEditor/ContactEditor';
-import ContactList from './ContactList/ContactList';
-import Finder from './Finder/Finder';
+import ContactEditor from './ContactEditor';
+import ContactList from './ContactList';
+import Finder from './Finder';
 
 class App extends Component {
   state = {
@@ -46,6 +46,12 @@ class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter),
     );
   };
+
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
   render() {
     const visibleContacts = this.getVisibleContacts();
     return (
@@ -57,7 +63,10 @@ class App extends Component {
         <h2>Contacts</h2>
         <Finder value={this.state.filter} onChange={this.changeFilter} />
 
-        <ContactList contacts={visibleContacts} />
+        <ContactList
+          contacts={visibleContacts}
+          onDeleteContact={this.deleteContact}
+        />
       </>
     );
   }

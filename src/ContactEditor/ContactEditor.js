@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './ContactEditor.module.css';
 
 class ContactEditor extends Component {
   state = {
@@ -24,8 +25,8 @@ class ContactEditor extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>Name</h3>
+      <form className={styles.editorForm} onSubmit={this.handleSubmit}>
+        <h3 className={styles.editorTitle}>Name</h3>
         <input
           value={this.state.name}
           onChange={this.handleChange}
@@ -35,7 +36,7 @@ class ContactEditor extends Component {
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
         />
-        <h3>Number</h3>
+        <h3 className={styles.editorTitle}>Number</h3>
         <input
           value={this.state.number}
           onChange={this.numberChange}
